@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import * as React from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import {
@@ -40,7 +41,7 @@ const FlightTable: React.FC = () => {
         setFlights(response.data);
         setError(null);
       } catch (err) {
-        if (axios.isAxiosError(err)) {
+        if (err.response?.status) {
           setError(
             err.response?.status === 429
               ? "API limit exceeded. Please try again later."

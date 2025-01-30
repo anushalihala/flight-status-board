@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import * as React from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import {
@@ -24,7 +25,7 @@ const FlightDetail: React.FC = () => {
         setFlight(response.data);
         setError(null);
       } catch (err) {
-        if (axios.isAxiosError(err)) {
+        if (err.response?.status) {
           if (err.response?.status === 404) {
             setError("Flight not found. It may have been removed.");
           } else {

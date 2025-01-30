@@ -1,8 +1,8 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
-import axios from "axios";
+import { default as axios } from "axios";
 import FlightTable from "../components/FlightTable";
-import React from "react";
+import "@testing-library/jest-dom";
 
 jest.mock("axios");
 
@@ -21,14 +21,14 @@ describe("FlightTable Component", () => {
       {
         id: "2",
         flightNumber: "BB123",
-        airline: "American Airlines",
-        origin: "JFK",
-        destination: "LAX",
-        departureTime: "2024-06-01T12:00:00Z",
-        status: "On Time",
+        airline: "British Airlines",
+        origin: "JFK2",
+        destination: "LAX2",
+        departureTime: "2025-06-01T12:00:00Z",
+        status: "Boarding",
       },
     ];
-    (axios.get as jest.Mock).mockResolvedValue({ data: flights });
+    axios.get = jest.fn().mockResolvedValue({ data: flights });
 
     render(
       <BrowserRouter>
@@ -44,19 +44,37 @@ describe("FlightTable Component", () => {
     expect(screen.getByText("BB123")).toBeInTheDocument();
   });
 
-  test("displays error message on API failure", async () => {
-    (axios.get as jest.Mock).mockRejectedValue(new Error("API Error"));
+  describe("API errors", () => {
+    test("displays error message on 500 API failure", async () => {
+      axios.get = jest.fn().mockRejectedValue({ response: { status: 500 } });
 
-    render(
-      <BrowserRouter>
-        <FlightTable />
-      </BrowserRouter>
-    );
+      render(
+        <BrowserRouter>
+          <FlightTable />
+        </BrowserRouter>
+      );
 
-    await waitFor(() =>
-      expect(
-        screen.getByText("Failed to fetch flight data. Please try again later.")
-      ).toBeInTheDocument()
-    );
+      await waitFor(() =>
+        expect(
+          screen.getByText("Network error. Failed to fetch flight data.")
+        ).toBeInTheDocument()
+      );
+    });
+
+    test("displays error message on 429 API failure", async () => {
+      axios.get = jest.fn().mockRejectedValue({ response: { status: 429 } });
+
+      render(
+        <BrowserRouter>
+          <FlightTable />
+        </BrowserRouter>
+      );
+
+      await waitFor(() =>
+        expect(
+          screen.getByText("API limit exceeded. Please try again later.")
+        ).toBeInTheDocument()
+      );
+    });
   });
 });
