@@ -6,8 +6,7 @@
     "start": "vite",
     "dev": "vite",
     "build": "vite build",
-    "test": "jest",
-    "lint": "eslint . --ext ts,tsx"
+    "test": "jest"
   },
   "dependencies": {
     "@mui/material": "^5.14.0",
@@ -23,8 +22,7 @@
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "@vitejs/plugin-react": "^4.0.0",
-    "eslint": "^8.47.0",
-    "eslint-plugin-react": "^7.32.2",
+    "globals": "^15.14.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "ts-jest": "^29.2.5",

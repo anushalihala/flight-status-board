@@ -21,7 +21,7 @@ import StatusChip from "./StatusChip";
 import { formatUTCDateTime, getApiUrl } from "../common/utils";
 import { Flight } from "../common/types";
 
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
+const StyledTableRow = styled(TableRow)(() => ({
   "&:nth-of-type(odd)": {
     backgroundColor: "#f9f9f9",
   },

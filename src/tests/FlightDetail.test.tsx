@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
-import { default as axios, AxiosError } from "axios";
+import { default as axios } from "axios";
 import FlightDetail from "../components/FlightDetail";
 import "@testing-library/jest-dom";
 
