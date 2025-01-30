@@ -6,7 +6,6 @@ export const getApiUrl = () => {
 export const formatUTCDateTime = (utcString: string): string => {
   const date = new Date(utcString);
   return new Intl.DateTimeFormat("en-US", {
-    weekday: "short",
     year: "numeric",
     month: "short",
     day: "numeric",

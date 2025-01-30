@@ -24,7 +24,15 @@ const FlightDetail: React.FC = () => {
         setFlight(response.data);
         setError(null);
       } catch (err) {
-        setError("Failed to fetch flight details. Please try again later.");
+        if (axios.isAxiosError(err)) {
+          if (err.response?.status === 404) {
+            setError("Flight not found. It may have been removed.");
+          } else {
+            setError("Failed to fetch flight details. Please try again later.");
+          }
+        } else {
+          setError("An unexpected error occurred.");
+        }
       }
     };
     fetchFlight();
