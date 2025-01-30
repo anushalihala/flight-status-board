@@ -25,7 +25,7 @@ This React-based application provides a real-time flight status board, fetching 
 
 1. Clone the repository:
    ```sh
-   git clone
+   git clone https://github.com/anushalihala/flight-status-board.git
    cd flight-status-board
    ```
 2. Install dependencies:
